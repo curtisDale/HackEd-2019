@@ -54,6 +54,7 @@ public class characterController : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = false;
 		aS = this.GetComponent<AudioSource>();
 		Time.timeScale = timeMultiplier;
 		Time.fixedDeltaTime = 0.02f * Time.timeScale;
@@ -67,8 +68,13 @@ public class characterController : MonoBehaviour {
 	//	bUtext.text = bUcost.ToString();
 	//	bPtext.text = bPcost.ToString();
 	//	sText.text = sCost.ToString();
-
+        
 //		pointsText.text = points.ToString();
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+		}
 
 
 		distancePoints = distance / 4;
@@ -95,11 +101,11 @@ public class characterController : MonoBehaviour {
             aS.Play();
 		}
 
-		if (!Input.GetButton("run") && !grounded)
-        {
-            aS.clip = airRelease;
-            aS.Stop();
-        }
+		//if (!Input.GetButton("run") && !grounded &&!Input)
+      //  {
+       //     aS.clip = airRelease;
+       //     aS.Stop();
+       // }
 
 		if (Input.GetButtonDown("Fire1") && !grounded)
 		{
@@ -121,6 +127,9 @@ public class characterController : MonoBehaviour {
 		{
 			this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * (jumpPower), ForceMode.Impulse);
 			jumpCounter -= 1;
+			aS.volume = 0.05f;
+			aS.clip = airRelease;
+            aS.Play();
 		}
 
 		if (Input.GetButton("run") )
