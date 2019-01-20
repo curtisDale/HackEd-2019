@@ -29,15 +29,15 @@ public class enemyAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		stumbleTimer -= Time.deltaTime;
-		if (stumbleTimer<= 0 )
-		{
-			StartCoroutine(Stumble());
-			stumbleTimer = (stumbleFrequency * Random.Range(-1.5f, 1.5f));
-		}
+		//stumbleTimer -= Time.deltaTime;
+		//if (stumbleTimer<= 0 )
+		//{
+		//	StartCoroutine(Stumble());
+		//	stumbleTimer = (stumbleFrequency * Random.Range(1, 1.1f));
+		//}
 
-		if (!stumbling)
-		{
+		//if (!stumbling)
+		//{
 			float dist = Vector3.Distance(player.position, transform.position);
             this.GetComponent<NavMeshAgent>().destination = player.position;
 
@@ -50,11 +50,11 @@ public class enemyAI : MonoBehaviour {
                 this.GetComponent<NavMeshAgent>().speed = farSpeed;
             }
 
-		}
-		else if (stumbling)
-		{
-			this.GetComponent<NavMeshAgent>().speed = stumbleSpeed;
-		}
+		//}
+		//else if (stumbling)
+		//{
+		//	this.GetComponent<NavMeshAgent>().speed = stumbleSpeed;
+		//}
 
 	}
 	IEnumerator Stumble ()

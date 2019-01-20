@@ -25,6 +25,7 @@ public class bullet : MonoBehaviour {
 		health -= 1;
 		if (collision.transform.tag == "enemy")
 		{
+			print("collided");
 			if (collision.gameObject.GetComponent<enemyHealth>().health > 0)
             {
                 collision.gameObject.GetComponent<enemyHealth>().health -= damage;
