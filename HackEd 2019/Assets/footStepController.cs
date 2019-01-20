@@ -15,13 +15,14 @@ public class footStepController : MonoBehaviour {
 	void Update () {
 		
 	}
-	private void OnTriggerEnter(Collider collision)
+	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.tag == "ground")
-		{
+		//if (collision.transform.tag == "platform")
+		//{
+		src.volume = 0.3f;
 			src.clip = sounds[Random.Range(0, sounds.Length)];
             src.Play();
-		}
+		//}
 
 	}
 }

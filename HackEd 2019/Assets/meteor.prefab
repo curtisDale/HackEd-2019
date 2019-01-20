@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33136966431969122}
   - component: {fileID: 23211400106141844}
   - component: {fileID: 64466648759842394}
+  - component: {fileID: 114022579481409014}
   m_Layer: 0
   m_Name: meteor
   m_TagString: platform
@@ -37,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1536790909645076}
   m_LocalRotation: {x: -0.003937729, y: 0.0021437437, z: 0.0017392394, w: 0.99998844}
   m_LocalPosition: {x: 0.9825482, y: 0.94764245, z: 10.45}
-  m_LocalScale: {x: 2.5632515, y: 2.5654368, z: 2.5650172}
+  m_LocalScale: {x: 4, y: 3, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,3 +99,14 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 1715c2117055a478ebec31522ae5a8b2, type: 3}
+--- !u!114 &114022579481409014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536790909645076}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfddfe211bb74e07844f52cebd95ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

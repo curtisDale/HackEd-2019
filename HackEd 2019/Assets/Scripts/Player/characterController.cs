@@ -19,18 +19,51 @@ public class characterController : MonoBehaviour {
     [Range(3,100)]
 	public float jumpPower;
 	int initJumpCounter;
+	bool goingDown;
+	public float slamPower;
+	public float timeMultiplier;
+	AudioSource aS;
+	public AudioClip airRelease;
     
 	// Use this for initialization
 	void Start () {
+		aS = this.GetComponent<AudioSource>();
+		Time.timeScale = timeMultiplier;
+		Time.fixedDeltaTime = 0.02f * Time.timeScale;
 		initJumpCounter = jumpCounter;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetButtonDown("run") && !grounded)
+		{
+			aS.volume = 0.1f;
+			aS.clip = airRelease;
+			aS.Play();
+		}
+		if (Input.GetButtonDown("Fire1") && !grounded)
+        {
+			aS.volume = 0.1f;
+            aS.clip = airRelease;
+            aS.Play();
+		}
+
+		if (!Input.GetButton("run") && !grounded)
+        {
+            aS.clip = airRelease;
+            aS.Stop();
+        }
+
+		if (Input.GetButtonDown("Fire1") && !grounded)
+		{
+			goingDown = true;
+			this.GetComponent<Rigidbody>().AddForce(Vector3.down * slamPower, ForceMode.Impulse);
+		}
 
         if (grounded)
 		{
+			goingDown = false;
 			jumpCounter = initJumpCounter;
 		}
         
