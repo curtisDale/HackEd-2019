@@ -16,7 +16,13 @@ public class enemyAttack : MonoBehaviour {
 	}
 	private void OnTriggerEnter(Collider other)
 	{
-		animator.SetTrigger("attack");
+		if (other.transform.tag == "player")
+		{
+			animator.SetTrigger("attack");
+			other.GetComponent<characterController>().health -= 10;
+		}
+
+
 	}
 }
 

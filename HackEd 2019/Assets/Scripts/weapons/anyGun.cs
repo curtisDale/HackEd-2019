@@ -16,7 +16,7 @@ public class anyGun : MonoBehaviour {
 	public float bulletPenetration;
     [Range(0,20)]
 	public float recoilSpeed;
-	bool fired;
+	public bool fired;
 	public Vector3 recoilPosition;
 	Vector3 initPos;
     bool aiming;
