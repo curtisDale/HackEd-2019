@@ -1,9 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class characterController : MonoBehaviour {
 	public int jumpCounter = 5;
+	public AudioSource noBoost;
+	public Text pointsText;
+	public Transform spawnPoint;
+	public Text jPtext;
+	int jPlvl;
+	int jPcost;
+	public Text bUtext;
+	int bUlvl;
+	int bUcost;
+	public Text bPtext;
+	int bPlvl;
+	int bPcost;
+	public Text sText;
+	int slvl;
+	int sCost;
 
 	public bool grounded;
 	public float health;
@@ -24,6 +40,17 @@ public class characterController : MonoBehaviour {
 	public float timeMultiplier;
 	AudioSource aS;
 	public AudioClip airRelease;
+	public float boostAmount;
+	float initBoostAmount;
+	public float boostRefillRate;
+	public float burnRate;
+	public int platformPoints;
+	public int distance;
+	public int points;
+	public int distancePoints;
+	//public int storedPoints;
+	//public GameObject storeController;
+
     
 	// Use this for initialization
 	void Start () {
@@ -33,16 +60,35 @@ public class characterController : MonoBehaviour {
 		initJumpCounter = jumpCounter;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown("run") && !grounded)
+	//	jPtext.text = jPcost.ToString();
+	//	bUtext.text = bUcost.ToString();
+	//	bPtext.text = bPcost.ToString();
+	//	sText.text = sCost.ToString();
+
+//		pointsText.text = points.ToString();
+
+
+		distancePoints = distance / 4;
+		distance = Mathf.RoundToInt(Vector3.Distance(spawnPoint.position, this.transform.position));
+		boostAmount = Mathf.Lerp(boostAmount, 1, Time.deltaTime * boostRefillRate);
+		if (Input.GetButton("run"))
+		{
+			boostAmount -= Time.deltaTime * burnRate;
+		}
+		if (Input.GetButtonDown("run") && boostAmount <= 0)
+		{
+			noBoost.Play();
+		}
+		if (Input.GetButtonDown("run") && !grounded && boostAmount > 0)
 		{
 			aS.volume = 0.1f;
 			aS.clip = airRelease;
 			aS.Play();
 		}
-		if (Input.GetButtonDown("Fire1") && !grounded)
+		if (Input.GetButtonDown("Fire1") && !grounded && boostAmount >0)
         {
 			aS.volume = 0.1f;
             aS.clip = airRelease;
@@ -77,7 +123,7 @@ public class characterController : MonoBehaviour {
 			jumpCounter -= 1;
 		}
 
-		if (Input.GetButton("run"))
+		if (Input.GetButton("run") )
 		{
 			running = true;
 		}
@@ -85,7 +131,7 @@ public class characterController : MonoBehaviour {
         {
             running = false;
         }
-        if (running)
+		if (running && boostAmount >0)
 		{
 			speed = Mathf.Lerp(speed, (walkingSpeed * runMultipllier), Time.deltaTime * acceleration);
 		}
@@ -111,6 +157,13 @@ public class characterController : MonoBehaviour {
 			grounded = true;
 		}
 	}
+	private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "platform")
+        {
+			platformPoints = platformPoints + 2;
+        }
+    }
 	private void OnCollisionExit(Collision collision)
     {
         if (collision.transform.tag == "platform")
@@ -118,4 +171,5 @@ public class characterController : MonoBehaviour {
             grounded = false;
         }
     }
+ 
 }
